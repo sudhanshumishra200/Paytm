@@ -1,6 +1,6 @@
 import {Router} from 'express'
 import { Account } from '../model/user.model.js'
-import authMiddleware from './middleware/auth.middleware.js'
+import {authMiddleware} from './middleware/auth.middleware.js'
 import mongoose from 'mongoose'
 
 

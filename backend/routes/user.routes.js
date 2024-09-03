@@ -1,8 +1,8 @@
 import {Router} from 'express'
 import zod from 'zod'
-import {User} from '../model/user.model.js'
+import {User, Account} from '../model/user.model.js'
 import jwt from 'jsonwebtoken'
-import authMiddleware from './middleware/auth.middleware.js'
+import {authMiddleware} from '../middleware/auth.middle.js'
 
 
 const router = Router()
@@ -17,11 +17,16 @@ const signupBody = zod.object({
 })
 
 
+
 router.post('/signup', async (req,res) => {
-    const success = signupBody.safeParse(req.body)
+    // console.log('Request Body:', req.body);
+    const {success} = signupBody.safeParse(req.body)
+    // console.log('Validation Success:', success);
+
+    // console.log(success)
     if(!success){
-        return res.status(404).json({
-            message: "Email already taken / Incorrect inputs"
+        return res.status(411).json({
+            message: " Incorrect inputs"
         })
     }
 
@@ -35,27 +40,28 @@ router.post('/signup', async (req,res) => {
         })
     }
     //pushing into db
-    const user = User.create({
+    const user = await User.create({
         username: req.body.username,
-        firstName: req.body.email,
+        firstName: req.body.firstName,
         lastName: req.body.lastName,
         password: req.body.password 
     })
+    // console.log(user);
 
-    const userid =user._id
+    const userId =user._id
 
     //............................create new account ..............................
 
 
     await Account.create({
-        userid,
+        userId: userId,
         balance:  1 + Math.random() * 10000
     })
 //token generataion
 //jwt.sign(payload, secretKey, options)
 
     const token = jwt.sign({
-        userId: userid,
+        userId,
     }, process.env.JWT_SECRET)
 
     res.json({
@@ -71,8 +77,8 @@ const signinBody =zod.object({
     username: zod.string().email(),
     password: zod.string()
 })
-
-router.post('/signin', async (req, res) => {
+// we only need to send the username and password and will get new token
+ router.post('/signin', async (req, res) => {
     const success = signinBody.safeParse(req.body)
     if (!success){
         return res.status(404).json({
@@ -134,7 +140,7 @@ router.put('/', authMiddleware, async (req, res) => {
     }
 
     // find the user based on the token
-    const user = await User.findByIdAndUpdate(req.user.userId, req.body, {new: true})
+    const user = await User.findByIdAndUpdate(req.userId, req.body, {new: true})
 
     if (!user){
         return res.status(404).json({
@@ -160,7 +166,7 @@ router.get('/bulk', async (req, res) => {
     const users = await User.find({
         $or: [{
             firstName: {
-                "$regex": filter
+                "$regex": filter // this is an operator in the mongoose used to filter out on partial name mathcing eg: su :- sudhanshu, subham sumit rtc will be poped up
             }
         }, {
             lastName: {
