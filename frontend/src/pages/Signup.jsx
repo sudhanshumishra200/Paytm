@@ -35,7 +35,8 @@ const navigate = useNavigate()
                 }}/>
                 <BottomWarning label={"Signin to existing account"} buttonText={"signin"} to={"/signin"}/>
                 <div className="pt-4">
-                <Button label={"SignUp"} onClick={ async ()=> {
+                <Button className={`w-full border-2 border-[#00baf2] py-3 px-6 rounded-lg hover:bg-[#00baf2] hover:text-white transition-all duration-200 font-semibold text-base shadow-md `}
+                 label={"SignUp"} onClick={ async ()=> {
                     // here we can pass in the key value or without the key value same thing
                     const response = await axios.post("http://localhost:3000/api/v1/users/signup", {
                         // the key must be match with the defined key at the backend side
