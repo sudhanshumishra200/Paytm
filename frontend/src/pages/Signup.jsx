@@ -7,6 +7,8 @@ import { BottomWarning } from "../Components/BottomWarning"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 // if u want to put custom bg image:- bg-[url('/img/hero-pattern.svg')]
 export function Signup (){
 
@@ -38,7 +40,7 @@ const navigate = useNavigate()
                 <Button className={`w-full border-2 border-[#00baf2] py-3 px-6 rounded-lg hover:bg-[#00baf2] hover:text-white transition-all duration-200 font-semibold text-base shadow-md `}
                  label={"SignUp"} onClick={ async ()=> {
                     // here we can pass in the key value or without the key value same thing
-                    const response = await axios.post("http://localhost:3000/api/v1/users/signup", {
+                    const response = await axios.post(`${API_BASE_URL}/api/v1/users/signup`, {
                         // the key must be match with the defined key at the backend side
                         username,
                         firstName,

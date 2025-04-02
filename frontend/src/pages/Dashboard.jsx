@@ -3,6 +3,7 @@ import axios from "axios";
 import { Appbar } from "../Components/Appbar";
 import { Balance } from "../Components/Balance";
 import { Users } from "../Components/Users";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export function Dashboard() {
     const [balance, setBalance] = useState(null); // State to store the balance
@@ -12,7 +13,7 @@ export function Dashboard() {
     const fetchBalance = async () => {
         try {
             const token = localStorage.getItem("token"); // Get the token from localStorage
-            const response = await axios.get("http://localhost:3000/api/v1/account/balance", {
+            const response = await axios.get(`${API_BASE_URL}/api/v1/account/balance`, {
                 headers: {
                     Authorization: `Bearer ${token}`, // Pass the token in the Authorization header
                 },

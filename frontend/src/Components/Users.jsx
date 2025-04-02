@@ -2,17 +2,19 @@ import { useEffect, useState } from "react";
 import { Button } from "./Button";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 
 export const Users = () => {
     const [users, setUsers] = useState([]);
     const [filter, setFilter] = useState("");
 
-    // Fetch users from the backend
+    // Fetch users from the backend (API call)
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await axios.get(
-                    "http://localhost:3000/api/v1/users/bulk?filter=" + filter
+                    `${API_BASE_URL}/api/v1/users/bulk?filter=` + filter
                 );
                 setUsers(response.data.user);
             } catch (error) {

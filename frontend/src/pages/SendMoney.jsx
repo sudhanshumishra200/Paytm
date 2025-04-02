@@ -2,6 +2,7 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import axios from "axios";
 import { useState } from 'react';
 import { Button } from '../Components/Button'; // Ensure the path is correct
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export const SendMoney = () => {
     const [searchParams] = useSearchParams();
@@ -51,7 +52,7 @@ export const SendMoney = () => {
                                     }
 
                                     // Proceed with the API call if validation passes
-                                    axios.post("http://localhost:3000/api/v1/account/transfer", {
+                                    axios.post(`${API_BASE_URL}/api/v1/account/transfer`, {
                                         to: id,
                                         amount,
                                     }, {
