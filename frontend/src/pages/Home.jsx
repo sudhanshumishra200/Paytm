@@ -1,7 +1,7 @@
 // Home.jsx
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Button } from '../components/Button'; // Adjust path as needed
+import { Button } from '../Components/Button'; // Adjust path as needed
 
 const Home = () => {
     const [isDarkMode, setIsDarkMode] = useState(false);
