@@ -33,20 +33,35 @@ A full-stack web application that allows users to register, log in, and securely
 
 ## e-wallet-app/
 -├── client/ # React frontend
+
 -│ ├── src/
+
 -│ │ ├── components/
+
 -│ │ ├── pages/
+
 -│ │ ├── App.jsx
+
 -│ │ └── main.jsx
+
 -│ └── public/
+
 -├── server/ # Node.js backend
+
 -│ ├── controllers/
+
 -│ ├── models/
+
 -│ ├── routes/
+
 -│ ├── middleware/
+
 -│ └── server.js
+
 -├── .env
+
 -└── README.md
+
 
 
 ---
@@ -100,7 +115,7 @@ Open a Pull Request
 For major changes, please open an issue first to discuss what you would like to change.
 
 ## 📃 License
-This project is licensed under the MIT License.
+This project is licensed under the [MIT License]().
 You are free to use, modify, and distribute this software with attribution.
 See the LICENSE file for full details.
 
